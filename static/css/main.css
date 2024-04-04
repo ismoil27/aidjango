@@ -1,0 +1,38 @@
+body {
+  background-color: #000;
+}
+
+.title {
+  color: red;
+  font-size: 72px;
+  text-align: center;
+  font-family: "Aircruiser", sans-serif;
+  /* font-family: "Aircruiser 3D", sans-serif; */
+  /* font-family: "Aircruiser Title", sans-serif; */
+}
+
+.upload_icon {
+  display: flex;
+  justify-content: center;
+}
+
+#upload {
+  background-color: red;
+  color: #fff;
+}
+
+.upload-button {
+  display: flex;
+  justify-content: center;
+}
+
+.upload_icon {
+  width: 100px;
+  height: 90px;
+}
+
+.image-preview {
+  width: 284px;
+  height: 370px;
+  margin-right: 10px;
+}

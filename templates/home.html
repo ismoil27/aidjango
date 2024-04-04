@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link href="https://fonts.cdnfonts.com/css/aircruiser" rel="stylesheet">
+                
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 class="title">Classifiers</h1>
+    <div class="upload-container">
+      <!-- Hidden file input -->
+      <input
+        type="file"
+        id="upload"
+        accept="image/*"
+        style="display: none"
+        multiple
+        onchange="previewImages(event)"
+      />
+      <!-- Button with icon -->
+      <label for="upload" class="upload-button">
+        <img
+          class="upload_icon"
+          src="{% static 'images/upload.png' %}"
+          alt="Upload Icon"
+        />
+      </label>
+      <!-- Image preview container -->
+      <div class="image-preview-container" id="image-preview-container"></div>
+    </div>
+    <script>
+      function previewImages(event) {
+        const input = event.target;
+        const previewContainer = document.getElementById(
+          "image-preview-container"
+        );
+
+        if (input.files && input.files.length > 0) {
+          previewContainer.innerHTML = ""; // Clear previous previews
+
+          Array.from(input.files).forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              const imagePreview = document.createElement("img");
+              imagePreview.src = e.target.result;
+              imagePreview.alt = "Image Preview";
+              imagePreview.classList.add("image-preview"); // Add class to the image
+              previewContainer.appendChild(imagePreview);
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
