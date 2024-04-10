@@ -6,8 +6,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <link href="https://fonts.cdnfonts.com/css/aircruiser" rel="stylesheet">
-                
+    <link href="https://fonts.cdnfonts.com/css/aircruiser" rel="stylesheet" />
+
     <title>Document</title>
   </head>
   <body>
@@ -32,13 +32,23 @@
       </label>
       <!-- Image preview container -->
       <div class="image-preview-container" id="image-preview-container"></div>
+      <!-- Classify button -->
+      <button id="classify-button" style="display: none">
+        <a href="{% url 'images_result' %}"> Classify </a>
+      </button>
     </div>
     <script>
+      // In the same HTML file where you handle image upload and preview
+      function classifyImages() {
+        window.location.href = "/images_result"; // Redirect to the images_result page
+      }
+
       function previewImages(event) {
         const input = event.target;
         const previewContainer = document.getElementById(
           "image-preview-container"
         );
+        const classifyButton = document.getElementById("classify-button");
 
         if (input.files && input.files.length > 0) {
           previewContainer.innerHTML = ""; // Clear previous previews
@@ -54,6 +64,13 @@
             };
             reader.readAsDataURL(file);
           });
+
+          // Show the classify button
+          classifyButton.style.display = "block";
+          classifyButton.addEventListener("click", classifyImages); // Attach click event listener
+        } else {
+          // Hide the classify button if no images are uploaded
+          classifyButton.style.display = "none";
         }
       }
     </script>
