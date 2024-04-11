@@ -7,21 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link href="https://fonts.cdnfonts.com/css/aircruiser" rel="stylesheet" />
-
     <title>Document</title>
   </head>
   <body>
     <h1 class="title">Classifiers</h1>
     <div class="upload-container">
       <!-- Hidden file input -->
+      <!-- <input type="file" id="upload" accept="image/*" style="display: none" multiple webkitdirectory directory onchange="previewFiles(event)"> -->
       <input
         type="file"
         id="upload"
-        accept="image/*"
+        accept="image/*, .zip"
         style="display: none"
         multiple
-        onchange="previewImages(event)"
+        webkitdirectory
+        directory
+        onchange="previewFiles(event)"
       />
+
       <!-- Button with icon -->
       <label for="upload" class="upload-button">
         <img
@@ -38,12 +41,11 @@
       </button>
     </div>
     <script>
-      // In the same HTML file where you handle image upload and preview
       function classifyImages() {
         window.location.href = "/images_result"; // Redirect to the images_result page
       }
 
-      function previewImages(event) {
+      function previewFiles(event) {
         const input = event.target;
         const previewContainer = document.getElementById(
           "image-preview-container"
@@ -54,15 +56,37 @@
           previewContainer.innerHTML = ""; // Clear previous previews
 
           Array.from(input.files).forEach((file) => {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              const imagePreview = document.createElement("img");
-              imagePreview.src = e.target.result;
-              imagePreview.alt = "Image Preview";
-              imagePreview.classList.add("image-preview"); // Add class to the image
-              previewContainer.appendChild(imagePreview);
-            };
-            reader.readAsDataURL(file);
+            if (file.type === "image/jpeg" || file.type === "image/png") {
+              // If it's an image file, display the image preview
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                const imagePreview = document.createElement("img");
+                imagePreview.src = e.target.result;
+                imagePreview.alt = "Image Preview";
+                imagePreview.classList.add("image-preview"); // Add class to the image
+                previewContainer.appendChild(imagePreview);
+              };
+              reader.readAsDataURL(file);
+            } else if (file.name.endsWith(".zip")) {
+              // If it's a zip file, handle it
+              const formData = new FormData();
+              formData.append("zip_file", file);
+
+              fetch("/handle_zip/", {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => {
+                  if (response.ok) {
+                    console.log("Zip file uploaded and extracted successfully");
+                  } else {
+                    console.error("Failed to upload or extract zip file");
+                  }
+                })
+                .catch((error) => {
+                  console.error("Error:", error);
+                });
+            }
           });
 
           // Show the classify button
