@@ -1,16 +1,15 @@
+{% extends 'base.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <link href="https://fonts.cdnfonts.com/css/aircruiser" rel="stylesheet" />
-    <title>Document</title>
-  </head>
-  <body>
+
+{% block title %} Home Page {% endblock title %}
+
+{% block content %}
+
     <h1 class="title">Classifiers</h1>
+    <span class="login_btn"> <a href="{% url 'login' %}">Login</a></span>
+
     <div class="upload-container">
       <!-- Hidden file input -->
       <!-- <input type="file" id="upload" accept="image/*" style="display: none" multiple webkitdirectory directory onchange="previewFiles(event)"> -->
@@ -98,5 +97,5 @@
         }
       }
     </script>
-  </body>
-</html>
+
+{% endblock %}

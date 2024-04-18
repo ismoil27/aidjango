@@ -2,6 +2,7 @@ import os
 import zipfile
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.contrib.auth import authenticate, login
 from django.core.files.storage import FileSystemStorage
 from django.views.decorators.csrf import csrf_exempt
 from ultralytics import YOLO
@@ -106,3 +107,19 @@ def handle_zip(request):
 
 def images_result(request):
     return render(request, 'images_result.html')
+
+
+
+
+# login view business logic
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'success.html')
+        else:
+            return render(request, 'login.html', {'error_message': 'Invalid credentials'})
+    return render(request, 'login.html')

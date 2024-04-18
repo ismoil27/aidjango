@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <form method="post">
+    {% csrf_token %} {% if error_message %}
+    <p class="error">{{ error_message }}</p>
+    {% endif %}
+    <input type="text" name="username" placeholder="Username" />
+    <input type="password" name="password" placeholder="Password" />
+    <button type="submit">Login</button>
+  </form>
+</div>
+{% endblock %}
