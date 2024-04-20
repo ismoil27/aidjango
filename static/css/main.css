@@ -52,10 +52,69 @@ body {
   color: #fff;
 }
 
-.login_btn {
+.login_btn_home {
   color: #fff;
   cursor: pointer;
   background-color: #27aebb;
   padding: 10px 20px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.login_btn_home a {
+  text-decoration: none;
+}
+
+/* Update input field style */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-field {
+  width: 400px; /* Set width of input fields */
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input-field:focus {
+  border-color: #6a7dff; /* Change border color on focus */
+}
+
+/* Style login button */
+.login-btn {
+  width: 122px;
+  padding: 15px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #6a7dff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+  background-color: #4f5bf6; /* Change background color on hover */
+}
+
+/* Center align container and form */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+form {
+  width: 100%;
+  max-width: 400px;
+}
+
+.login_text {
+  color: #fff;
 }
